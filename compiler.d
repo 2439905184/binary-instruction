@@ -72,19 +72,43 @@ void openFile(string p_name)
 	
 	file.close();
 }
+//这里应该是常量 不可变
+int max_file_length = 255;
+int max_file_name_length = 20;
+void writeBin()
+{
+  File file = File(default_bin_name,"w+");
+  void write_command()
+  {
 
-
+  }
+  string file_name = "xxx.bin";
+  if(file_name.length >=20)
+  {
+    writeln("错误！文件名过长");
+    return ;
+  }
+  //不足20个字节位置的，使用空格填充
+  ulong file_name_left_size = max_file_name_length - file_name.length;
+  file.write(01 ~ "xxx.bin");
+  for(int a = 0; a < file_name_left_size; a=a+1)
+  {
+    file.write(" ");
+  }
+  file.close();
+}
 void main(string[] args)
 {
-  if(args[1] == "-s")
+  /*if(args[1] == "-s")
   {
 	  target_code = "asm";
   }
   else
   {
    	target_code = "bin";
-  }
-  openFile(args[2]);
+  }*/
+  //openFile(args[2]);
+  writeBin();
 /* if(target_code == "asm")
  {
 
