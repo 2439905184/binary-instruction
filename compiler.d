@@ -75,9 +75,10 @@ void openFile(string p_name)
 //这里应该是常量 不可变
 int max_file_length = 255;
 int max_file_name_length = 20;
-void writeBin()
+
+/*void writeBin()
 {
-  File file = File(default_bin_name,"w+");
+  File file = File(default_bin_name,"w");
   void write_command()
   {
 
@@ -90,15 +91,32 @@ void writeBin()
   }
   //不足20个字节位置的，使用空格填充
   ulong file_name_left_size = max_file_name_length - file_name.length;
-  file.write(01 ~ "xxx.bin");
-  for(int a = 0; a < file_name_left_size; a=a+1)
+  //写命令缓冲区
+  int[] command_buffer = [0,1,2,3,4,5];
+  file.rawWrite(command_buffer);
+  //file.write(" ");
+  //file.write(01 ~ "xxx.bin");
+  /*for(int a = 0; a < file_name_left_size; a=a+1)
   {
     file.write(" ");
   }
   file.close();
+}*/
+void myWriteBin()
+{
+  File f = File("a.bin","w");
+  byte[] b = [0,1,0];
+  f.rawWrite(b);
+  f.write("xxx.bin");
+  for(int i = 0; i< 13;i+=1)
+  {
+    f.write(" ");
+  }
+  f.close();
 }
 void main(string[] args)
 {
+  myWriteBin();
   /*if(args[1] == "-s")
   {
 	  target_code = "asm";
@@ -108,7 +126,7 @@ void main(string[] args)
    	target_code = "bin";
   }*/
   //openFile(args[2]);
-  writeBin();
+ // writeBin();
 /* if(target_code == "asm")
  {
 
