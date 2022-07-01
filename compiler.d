@@ -42,25 +42,72 @@ void compile_to_asm(string[] p_cmds)
     file.close();
   }
 }
+//这里应该是常量 不可变
+int max_file_length = 255;
+int max_file_name_length = 20;
+//bug 应该把文件创建移动到函数外部，避免逐行读取并写入新文件时产生的覆盖问题！
+void compile_to_bin(string[] p_cmds)
+{
+  if(p_cmds[0] == "@create_file")
+  {
+    byte[] command_code = [0,0];
+    byte[] command_space = [0];
+    string file_name = p_cmds[1];
+    
+    File f = File(default_bin_name,"w+");
+    f.rawWrite(command_code);
+    f.rawWrite(command_space);
+    
+    f.write(file_name);
+
+    ulong space_size = max_file_name_length - file_name.length;
+    for(int i = 0; i < space_size; i += 1)
+    {
+      f.write(" ");
+    }
+    writeln("compiled >>> ","机器码：",command_code);
+    f.close();
+  }
+  //todo重构
+  if(p_cmds[0] == "@remove_file")
+  {
+    byte[] command_code = [0,1];
+    byte[] command_space = [0] ;
+    string file_name = p_cmds[1];
+
+    File f = File(default_bin_name,"w+");
+    f.rawWrite(command_code);
+    f.rawWrite(command_space);
+
+    f.write(file_name);
+    
+    ulong space_size = max_file_name_length - file_name.length;
+    for(int i = 0; i < space_size; i += 1)
+    {
+      f.write(" ");
+    }
+    writeln("compiled >>> ","机器码：",command_code);
+    f.close();
+  }
+}
 //词法分析
 void tokenizer(string code)
 {
   //切割字符串
-  string commands[] = split(code,regex(r"\s+"));
+  string[] commands = split(code,regex(r"\s+"));
   //string command_name = commands[0];
   if(target_code == "asm")
   {
   	compile_to_asm(commands);
   }
+  if(target_code == "bin")
+  {
+    compile_to_bin(commands);
+  }
   writeln("splited >>> ",commands);
-
 }
-//todo
-void compile_to_bin()
-{
 
-}
-void openFile(string p_name)
+void myOpenFile(string p_name)
 {
 	File file = File(p_name,"r");
 	string line;
@@ -72,68 +119,32 @@ void openFile(string p_name)
 	
 	file.close();
 }
-//这里应该是常量 不可变
-int max_file_length = 255;
-int max_file_name_length = 20;
 
-/*void writeBin()
-{
-  File file = File(default_bin_name,"w");
-  void write_command()
-  {
-
-  }
-  string file_name = "xxx.bin";
-  if(file_name.length >=20)
-  {
-    writeln("错误！文件名过长");
-    return ;
-  }
-  //不足20个字节位置的，使用空格填充
-  ulong file_name_left_size = max_file_name_length - file_name.length;
-  //写命令缓冲区
-  int[] command_buffer = [0,1,2,3,4,5];
-  file.rawWrite(command_buffer);
-  //file.write(" ");
-  //file.write(01 ~ "xxx.bin");
-  /*for(int a = 0; a < file_name_left_size; a=a+1)
-  {
-    file.write(" ");
-  }
-  file.close();
-}*/
+/*
 void myWriteBin()
 {
   File f = File("a.bin","w");
   byte[] b = [0,1,0];
   f.rawWrite(b);
   f.write("xxx.bin");
+  ulong command_space_buffer_size = max_file_length - file_name.length;
   for(int i = 0; i< 13;i+=1)
   {
     f.write(" ");
   }
   f.close();
-}
+}*/
 void main(string[] args)
 {
-  myWriteBin();
-  /*if(args[1] == "-s")
+  //myWriteBin();
+  if(args[1] == "-s")
   {
 	  target_code = "asm";
   }
   else
   {
    	target_code = "bin";
-  }*/
-  //openFile(args[2]);
- // writeBin();
-/* if(target_code == "asm")
- {
-
- }*/
-//todo
- /* if(target_code == "bin"){
- }*/
-
-
+  }
+  writeln("输入参数>>>",args);
+  myOpenFile(args[1]);
 }
