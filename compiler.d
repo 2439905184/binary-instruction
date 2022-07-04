@@ -73,22 +73,57 @@ void compile_to_bin(string[] p_cmds)
   if(p_cmds[0] == "@remove_file")
   {
     byte[] command_code = [0,1];
-    byte[] command_space = [0] ;
+    byte[] command_space = [0];
     string file_name = p_cmds[1];
 
-    File f = File(default_bin_name,"w+");
-    f.rawWrite(command_code);
-    f.rawWrite(command_space);
+    bin_file.rawWrite(command_code);
+    bin_file.rawWrite(command_space);
 
-    f.write(file_name);
+    bin_file.write(file_name);
     
     ulong space_size = max_file_name_length - file_name.length;
     for(int i = 0; i < space_size; i += 1)
     {
-      f.write(" ");
+      bin_file.write(" ");
     }
+    bin_file.write(";");
     writeln("compiled >>> ","机器码：",command_code);
-    f.close();
+  }
+  if(p_cmds[0] == "@read_file")
+  {
+    byte[] command_code = [1,0];
+    byte[] command_space = [0];
+    string file_name = p_cmds[1];
+
+    bin_file.rawWrite(command_code);
+    bin_file.rawWrite(command_space);
+    bin_file.write(file_name);
+    
+    ulong space_size = max_file_name_length - file_name.length;
+    for(int i = 0; i < space_size; i += 1)
+    {
+      bin_file.write(" ");
+    }
+    bin_file.write(";");
+    writeln("compiled >>> ","机器码：",command_code);
+  }
+  if(p_cmds[0] == "@write_file")
+  {
+    byte[] command_code = [1,1];
+    byte[] command_space = [0];
+    string file_name = p_cmds[1];
+
+    bin_file.rawWrite(command_code);
+    bin_file.rawWrite(command_space);
+    bin_file.write(file_name);
+    
+    ulong space_size = max_file_name_length - file_name.length;
+    for(int i = 0; i < space_size; i += 1)
+    {
+      bin_file.write(" ");
+    }
+    bin_file.write(";");
+    writeln("compiled >>> ","机器码：",command_code);
   }
 }
 //词法分析
