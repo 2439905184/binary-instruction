@@ -20,28 +20,17 @@ void main(string[] args)
     writeln(args[1]);
     string file_name = args[1];
     File file = File(args[1],"r");
-    //完成基础读取
-    /* 
-    byte[] head = read_head(file);
-    byte[1] space;
-    file.rawRead(space);
-    char[] name = read_name(file);
-    //;号
-    file.rawRead(space);
-    writeln("指令码>>>",head);
-    writeln("参数1>>>",name);
-    byte[] head2 = read_head(file);
-    writeln(head2);
-   */
+    
     //24 is a chunk size
-    /*for(int i=0; i < file.size(); i+=24)
+    for(int i=0; i < file.size(); i+=24)
     {
         byte[] head = read_head(file);
         byte[1] space;
         file.rawRead(space);
         char[] name = read_name(file);
+        //分号
+        file.rawRead(space);
         writeln("指令码>>>",head,"参数1>>>",name);    
     }
-    */
     file.close();
 }
