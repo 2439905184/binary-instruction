@@ -2,6 +2,7 @@ import std.stdio;
 import std.file;
 //在这里解析二进制指令文件并运行 
 //https://dlang.org/library/std/stdio/file.raw_read.html
+//使用结构体重构
 byte[2] read_head(File p_file)
 {
     byte[2] head;
@@ -19,12 +20,19 @@ void main(string[] args)
     writeln(args[1]);
     string file_name = args[1];
     File file = File(args[1],"r");
-    
+    //完成基础读取
+    /* 
     byte[] head = read_head(file);
     byte[1] space;
     file.rawRead(space);
     char[] name = read_name(file);
-    writeln("指令码>>>",head,"参数1>>>",name);    
+    //;号
+    file.rawRead(space);
+    writeln("指令码>>>",head);
+    writeln("参数1>>>",name);
+    byte[] head2 = read_head(file);
+    writeln(head2);
+   */
     //24 is a chunk size
     /*for(int i=0; i < file.size(); i+=24)
     {
