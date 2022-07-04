@@ -5,6 +5,8 @@ import std.file;
 string target_code;
 string default_asm_name = "a.asm";
 string default_bin_name = "a.bin";
+File bin_file;
+File asm_file;
 //有bug待修复
 void compile_to_asm(string[] p_cmds)
 {
@@ -53,20 +55,19 @@ void compile_to_bin(string[] p_cmds)
     byte[] command_code = [0,0];
     byte[] command_space = [0];
     string file_name = p_cmds[1];
+
+    bin_file.rawWrite(command_code);
+    bin_file.rawWrite(command_space);
     
-    File f = File(default_bin_name,"w+");
-    f.rawWrite(command_code);
-    f.rawWrite(command_space);
-    
-    f.write(file_name);
+    bin_file.write(file_name);
 
     ulong space_size = max_file_name_length - file_name.length;
     for(int i = 0; i < space_size; i += 1)
     {
-      f.write(" ");
+      bin_file.write(" ");
     }
+    bin_file.write(";");
     writeln("compiled >>> ","机器码：",command_code);
-    f.close();
   }
   //todo重构
   if(p_cmds[0] == "@remove_file")
@@ -116,27 +117,13 @@ void myOpenFile(string p_name)
 		tokenizer(line);
 		//writeln(line);
 	}
-	
 	file.close();
 }
 
-/*
-void myWriteBin()
-{
-  File f = File("a.bin","w");
-  byte[] b = [0,1,0];
-  f.rawWrite(b);
-  f.write("xxx.bin");
-  ulong command_space_buffer_size = max_file_length - file_name.length;
-  for(int i = 0; i< 13;i+=1)
-  {
-    f.write(" ");
-  }
-  f.close();
-}*/
 void main(string[] args)
 {
-  //myWriteBin();
+  bin_file = File(default_bin_name,"w");
+  asm_file = File(default_asm_name,"w");
   if(args[1] == "-s")
   {
 	  target_code = "asm";
@@ -147,4 +134,6 @@ void main(string[] args)
   }
   writeln("输入参数>>>",args);
   myOpenFile(args[1]);
+  bin_file.close();
+  asm_file.close();
 }
