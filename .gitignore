@@ -2,3 +2,5 @@
 *.out
 *.bin
 *.elf
+dist/*.txt
+dist/��������������������

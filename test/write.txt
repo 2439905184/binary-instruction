@@ -1,1 +1,1 @@
-@write_file hello.txt
+@write_file hello.txt string

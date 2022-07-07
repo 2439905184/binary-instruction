@@ -1,1 +1,1 @@
-@create_file xxx.bin
+@create_file hello.txt
