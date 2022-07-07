@@ -1,5 +1,5 @@
 import std.stdio;
-import std.file;
+import std.file:remove;
 //使用循环，分段写入文件的示例代码
 void Mywrite()
 {
@@ -23,13 +23,11 @@ void byte_array_mix()
     writeln("名称> ",cast(char[])name);
 }
 
+void remove_file()
+{
+    remove("a.asm");
+}
 void main()
 {
-    //byte_array_mix();
-   byte[] readed = [0,1];
-   byte[] read_code = [0,1];
-   if(readed == read_code)
-   {
-    writeln("验证正确,开始执行读取文件操作");
-   }
+    remove_file();
 }
