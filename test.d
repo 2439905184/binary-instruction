@@ -27,7 +27,21 @@ void remove_file()
 {
     remove("a.asm");
 }
+//字符数组转字符串
+void to_string(char[] array)
+{
+    string b = "";
+    ulong len = array.length;
+    for(int i=0; i< array.length; i+=1)
+    {
+        char e = array[i];
+        if(e != ' ')
+        {
+            b ~= e;
+        }
+    }
+}
 void main()
 {
-    remove_file();
+
 }
