@@ -26,6 +26,10 @@ void byte_array_mix()
 void main()
 {
     //byte_array_mix();
-    byte[] a = [0,1,2,3,4,5,6];
-    writeln(a[2..6]);
+   byte[] readed = [0,1];
+   byte[] read_code = [0,1];
+   if(readed == read_code)
+   {
+    writeln("验证正确,开始执行读取文件操作");
+   }
 }
