@@ -1,6 +1,4 @@
-*.asm
 *.out
 *.bin
 *.elf
 dist/*.txt
-dist/��������������������
