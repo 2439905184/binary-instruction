@@ -106,6 +106,16 @@ void main(string[] args)
             string content = readText(name2);
             writeln("读取结果>>>",content);
         }
+        if(head == write_file)
+        {
+            char[255] buffer;
+            file.rawRead(buffer);
+            string content = CharArrayToString(buffer);
+            writeln("即将写入",content);
+            File f = File(name2,"w");
+            f.write(content);
+            f.close();
+        }
         //MyExecute();
         writeln("指令码>>>",head,"参数1>>>",name);    
     }

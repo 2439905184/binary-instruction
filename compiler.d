@@ -122,6 +122,13 @@ void compile_to_bin(string[] p_cmds)
     {
       bin_file.write(" ");
     }
+    string content = p_cmds[2];
+    ulong space_size2 = max_file_length - content.length;
+    bin_file.write(p_cmds[2]);
+    for(int i =0; i < space_size2; i+=1)
+    {
+      bin_file.write(" ");
+    }
     bin_file.write(";");
     writeln("compiled >>> ","机器码：",command_code);
   }
