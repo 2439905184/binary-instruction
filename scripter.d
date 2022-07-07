@@ -58,6 +58,21 @@ void MyExecute(byte[] command)
         writeln(head);
     }*/
 }
+//字符数组转字符串
+string CharArrayToString(char[] array)
+{
+    string b = "";
+    ulong len = array.length;
+    for(int i=0; i< array.length; i+=1)
+    {
+        char e = array[i];
+        if(e != ' ')
+        {
+            b ~= e;
+        }
+    }
+    return b;
+}
 void main(string[] args)
 {
     writeln(args[1]);
@@ -72,6 +87,7 @@ void main(string[] args)
         byte[1] space;
         file.rawRead(space);
         char[] name = read_name(file);
+        string name2 = CharArrayToString(name);
         //分号
         file.rawRead(space);
         //todo
@@ -80,6 +96,10 @@ void main(string[] args)
             auto ls = executeShell("python3 ../FileUtil.py " ~name);
             if (ls.status != 0) writeln("Failed to retrieve file listing");
             else writeln(ls.output);
+        }
+        if(head == remove_file)
+        {
+            remove(name2);
         }
         //MyExecute();
         writeln("指令码>>>",head,"参数1>>>",name);    
