@@ -101,6 +101,11 @@ void main(string[] args)
         {
             remove(name2);
         }
+        if(head == read_file)
+        {
+            string content = readText(name2);
+            writeln("读取结果>>>",content);
+        }
         //MyExecute();
         writeln("指令码>>>",head,"参数1>>>",name);    
     }
