@@ -90,12 +90,11 @@ void main(string[] args)
         string name2 = CharArrayToString(name);
         //分号
         file.rawRead(space);
-        //todo
+        
         if(head == create_file)
         {
-            auto ls = executeShell("python3 ../FileUtil.py " ~name);
-            if (ls.status != 0) writeln("Failed to retrieve file listing");
-            else writeln(ls.output);
+            auto f = File(name2,"w");
+            f.close();
         }
         if(head == remove_file)
         {
