@@ -43,5 +43,6 @@ void to_string(char[] array)
 }
 void main()
 {
-
+    auto f = File("something.bin", "w");
+    f.close();
 }
