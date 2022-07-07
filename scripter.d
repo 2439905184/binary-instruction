@@ -106,6 +106,7 @@ void main(string[] args)
             string content = readText(name2);
             writeln("读取结果>>>",content);
         }
+        //bug:解释运行 写入文本时，会创建一个乱码文件，（文件系统错误）！
         if(head == write_file)
         {
             char[255] buffer;
