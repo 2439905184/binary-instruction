@@ -60,19 +60,13 @@ void MyExecute(byte[] command)
 }
 void main(string[] args)
 {
-    //writeln(args[1]);
-    //string file_name = args[1];
-    //File file = File(args[1],"r");
-    //File file = File("temp.txt","w");
-    //创建文件
-    auto ls = executeShell("python3 FileUtil.py temp.txt");
-    if (ls.status != 0) writeln("Failed to retrieve file listing");
-    else writeln(ls.output);
-    //executeShell("python FileUtil.py temp.cmd");
+    writeln(args[1]);
+    string file_name = args[1];
+    File file = File(args[1],"r");
     //24 is a chunk size
     //todo 在数组合并和切片处理时遇到问题
     //todo 重构
-   /* for(int i=0; i < file.size(); i+=24)
+    for(int i=0; i < file.size(); i+=24)
     {
         byte[] head = read_head(file);
         byte[1] space;
@@ -83,12 +77,12 @@ void main(string[] args)
         //todo
         if(head == create_file)
         {
-            File f = File(name,"w");
-            f.
-            f.close()
+            auto ls = executeShell("python3 ../FileUtil.py " ~name);
+            if (ls.status != 0) writeln("Failed to retrieve file listing");
+            else writeln(ls.output);
         }
         //MyExecute();
         writeln("指令码>>>",head,"参数1>>>",name);    
-    }*/
-    //file.close();
+    }
+    file.close();
 }

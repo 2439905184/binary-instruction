@@ -1,4 +1,1 @@
 @create_file xxx.bin
-@remove_file xxx.bin
-@read_file xxx.bin
-@write_file xxx.bin
